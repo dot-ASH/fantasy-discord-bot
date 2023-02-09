@@ -1,0 +1,50 @@
+[
+  {
+    "teamName": "Team-Goal Diggers",
+    "overallPoints": "469",
+    "currentGamedayPoints": "88"
+  },
+  { "teamName": "SASH", "overallPoints": "433", "currentGamedayPoints": "59" },
+  { "teamName": "ANTU", "overallPoints": "428", "currentGamedayPoints": "66" },
+  {
+    "teamName": "Nemesis CF",
+    "overallPoints": "420",
+    "currentGamedayPoints": "87"
+  },
+  {
+    "teamName": "Kenshin XI",
+    "overallPoints": "411",
+    "currentGamedayPoints": "64"
+  },
+  { "teamName": "Bitto", "overallPoints": "408", "currentGamedayPoints": "67" },
+  {
+    "teamName": "TEAM SAGE",
+    "overallPoints": "396",
+    "currentGamedayPoints": "102"
+  },
+  {
+    "teamName": "Mikasa Ackerman",
+    "overallPoints": "386",
+    "currentGamedayPoints": "81"
+  },
+  {
+    "teamName": "FC IOGムPoseidon",
+    "overallPoints": "367",
+    "currentGamedayPoints": "70"
+  },
+  {
+    "teamName": "Mayer Dua",
+    "overallPoints": "361",
+    "currentGamedayPoints": "76"
+  },
+  {
+    "teamName": "Shelby.Ltd",
+    "overallPoints": "355",
+    "currentGamedayPoints": "61"
+  },
+  {
+    "teamName": "TJ United",
+    "overallPoints": "325",
+    "currentGamedayPoints": "64"
+  }
+]

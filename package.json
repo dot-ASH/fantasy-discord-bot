@@ -1,0 +1,30 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "devStart": "nodemon bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^1.0.0",
+    "@discordjs/rest": "^1.1.0",
+    "axios": "^1.3.2",
+    "body-parser": "^1.20.1",
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.40",
+    "nodemon": "^2.0.20"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.33.0"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "legOne": [
+    {
+      "matchName": "Milan vs Tottenham",
+      "date": "02/14/2023 20:00:00"
+    },
+    {
+      "matchName": "Paris vs Bayern",
+      "date": "02/14/2023 20:00:00"
+    },
+    {
+      "matchName": "Dortmund vs Chelsea",
+      "date": "02/15/2023 20:00:00"
+    },
+    {
+      "matchName": "Club Brugge vs Benfica",
+      "date": "02/15/2023 20:00:00"
+    },
+    {
+      "matchName": "Frankfurt vs Napoli",
+      "date": "02/21/2023 20:00:00"
+    },
+    {
+      "matchName": "Liverpool vs Real Madrid",
+      "date": "02/21/2023 20:00:00"
+    },
+    {
+      "matchName": "Leipzig vs Man City",
+      "date": "02/22/2023 20:00:00"
+    },
+    { "matchName": "Inter vs Porto", "date": "02/22/2023 20:00:00" }
+  ],
+  "legTwo": [
+    {
+      "matchName": "Chelsea vs Dortmund",
+      "date": "03/07/2023 20:00:00"
+    },
+    {
+      "matchName": "Benfica vs Club Brugge",
+      "date": "03/07/2023 20:00:00"
+    },
+    {
+      "matchName": "Bayern vs Paris",
+      "date": "03/08/2023 20:00:00"
+    },
+    {
+      "matchName": "Tottenham vs Milan",
+      "date": "03/08/2023 20:00:00"
+    },
+    { "matchName": "Porto vs Inter", "date": "03/14/2023 20:00:00" },
+    {
+      "matchName": "Man City vs Leipzig",
+      "date": "03/14/2023 20:00:00"
+    },
+    {
+      "matchName": "Real Madrid vs Liverpool",
+      "date": "03/15/2023 20:00:00"
+    },
+    {
+      "matchName": "Napoli vs Frankfurt",
+      "date": "03/15/2023 20:00:00"
+    }
+  ]
+}

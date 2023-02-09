@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <style>
+      body {
+        background-color: rgb(46, 46, 46);
+        color: antiquewhite;
+        text-align: center;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Fetch the Data</h1>
+    <form action="/apiPost" method="post">
+      <label for="apiLink">API: </label><br />
+      <input
+        id="apiLink"
+        type="text"
+        name="apiLink"
+        placeholder="..."
+        required
+      /><br /><br />
+      <input type="submit" value="Fetch" />
+    </form>
+    <h1>Send Messages</h1>
+    <form action="txt" method="post">
+      <div class="container">
+        <label>Your message: </label><br />
+        <textarea name="text" style="width: 250px; height: 150px"></textarea
+        ><br /> <br />
+        <button type="submit">SEND MESSAGE</button>
+      </div>
+    </form>
+    <h1>Send leaderboard</h1>
+    <form action="leaderboard" method="post">
+      <div class="container">
+        <button type="submit">SEND LEADERBOARD</button>
+      </div>
+    </form>
+    <h1>Send result</h1>
+    <form action="result" method="post">
+      <div class="container">
+        <button type="submit">SEND RESULT</button>
+      </div>
+    </form>
+  </body>
+</html>

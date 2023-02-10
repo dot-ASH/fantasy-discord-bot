@@ -33,7 +33,6 @@ const about = new SlashCommandBuilder()
   .setName("about")
   .setDescription("About fantasy bot")
   .toJSON();
-
 export const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -58,8 +57,7 @@ client.on("ready", () => {
 });
 
 (async () => {
-  const commands = FanstayCommand;
-    // [, about]; *FOR TESTING PURPOSE
+  const commands = [FanstayCommand, about];
   try {
     console.log("Started refreshing application (/) commands.");
     await rest.put(Routes.applicationGuildCommands(client_id, guild_id), {

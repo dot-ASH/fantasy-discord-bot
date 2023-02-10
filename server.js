@@ -3,7 +3,6 @@ import axios from "axios";
 import fs from "fs";
 import bodyParser from "body-parser";
 import * as dotenv from "dotenv";
-import { reminder } from "./commands/reminder.js";
 import { sendLeaderboard, sendtxt, sendResult } from "./commands/sendtxt.js";
 
 dotenv.config();

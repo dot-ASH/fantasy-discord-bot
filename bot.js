@@ -1,5 +1,5 @@
 import keepAlive from "./server.js";
-keepAlive();
+import { reminder } from "./commands/reminder.js";
 import { config } from "dotenv";
 import {
   Client,

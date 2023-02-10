@@ -1,4 +1,4 @@
-import keepAlive from "./server.js"
+import keepAlive from "./server.js";
 keepAlive();
 import { config } from "dotenv";
 import {
@@ -11,14 +11,13 @@ import {
 import FanstayCommand from "./commands/fantasy.js";
 import {
   leaderboard,
-    score,
-    fixtureMenu,
-    motm,
-    aboutInt,
-    prevWinner
+  score,
+  fixtureMenu,
+  motm,
+  aboutInt,
+  prevWinner,
 } from "./interactions/interactionCom.js";
 // import { timer } from "./commands/commands/reminder.js.js";
-
 
 /*
 SYSTEM
@@ -45,8 +44,8 @@ export const client = new Client({
 
 client.on("ready", () => {
   console.log(`Logged in as THE ${client.user.tag}!`);
-//   setInterval(timer, 60000);
-
+  setInterval(reminder, 60000);
+  keepAlive();
   client.user.setPresence({
     activities: [
       {

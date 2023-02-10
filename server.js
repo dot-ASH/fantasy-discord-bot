@@ -42,9 +42,6 @@ async function fetchLeaderboard(apiLink) {
   createJSONfile("./data/newleaderboard.json", newLeaderboard);
 }
 
-setInterval(reminder, 60000);
-// reminder();
-
 server.get("/", (req, res) => {
   res.render("admin");
 });
@@ -98,8 +95,6 @@ server.post("/txt", async (req, res) => {
   let text = req.body.text;
   console.log(text);
   sendtxt(text);
-  // sendLeaderboard();
-  // sendResult();
   res.redirect("mainpage");
 });
 

@@ -58,7 +58,8 @@ client.on("ready", () => {
 });
 
 (async () => {
-  const commands = [FanstayCommand, about];
+  const commands = FanstayCommand;
+    // [, about]; *FOR TESTING PURPOSE
   try {
     console.log("Started refreshing application (/) commands.");
     await rest.put(Routes.applicationGuildCommands(client_id, guild_id), {

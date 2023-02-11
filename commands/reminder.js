@@ -1,18 +1,19 @@
 import { config } from "dotenv";
 import { client } from "../bot.js";
-import { AttachmentBuilder, EmbedBuilder } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { readJson } from "../server.js";
 import moment from "moment";
 
 config();
 let data;
+let timezone= "Asia/Dhaka";
 export let fixtureLegOne = [];
 export let fixtureLegTwo = [];
 const fantasy_role = process.env.ROLE || "";
 data = await readJson("./data/fixture.json");
 
 function momentLocalFun(date) {
-  return moment.tz(date, "Asia/Dhaka").format("MMMM Do YYYY, h:mm:ss a");
+  return moment.tz(date, timezone).format("MMMM Do YYYY, h:mm:ss a");
 }
 
 data.legOne.forEach((element) => {
@@ -32,15 +33,15 @@ const nextMatchday = fixtureLegOne[0].date;
 let remainingDay;
 const minOffset = 1;
 const hourOffset = 20;
-const subOffset = 5;
-const tranOffset = 5;
+const subOffset = 1;
+const tranOffset = 3;
 
 function dateObj(date) {
   return moment(date, "MMMM Do YYYY, h:mm:ss a");
 }
 
 export function whichLeg() {
-  let today = moment();
+  let today = moment().tz(timezone);
   if (
     today.year() === dateObj(fixtureLegOne[7].date).year() &&
     today.month() === dateObj(fixtureLegOne[7].date).month() &&
@@ -59,7 +60,7 @@ export function whichLeg() {
 }
 
 export async function reminder() {
-  let today = moment();
+  let today = moment().tz(timezone);
   console.log(today.minute(), today.second());
 
   // LEG ONE TRANSFER WINDOW

@@ -28,10 +28,14 @@ function createJSONfile(location, data) {
   });
 }
 
-// FETCH THE LEAG UE DATA FROM API
-async function fetchLeaderboard(apiLink) {
-  const { data } = await axios.get(apiLink);
-  for (let i = 0; i < data.data.value.notation; i++) {
+// FETCH THE LEAGUE DATA FROM API
+async function fetchLeaderboard() {
+  fs.readFile("./data/leaderBoard.json", "utf8", function (err, contents) {
+    if (err) {
+      console.log(err);
+    }
+    let data = JSON.parse(contents);
+      for (let i = 0; i < data.data.value.notation; i++) {
     newLeaderboard[i] = {
       teamName: data.data.value.rest[i].teamName,
       overallPoints: data.data.value.rest[i].overallPoints,
@@ -39,6 +43,7 @@ async function fetchLeaderboard(apiLink) {
     };
   }
   createJSONfile("./data/newleaderboard.json", newLeaderboard);
+      });
 }
 
 server.get("/", (req, res) => {
@@ -63,9 +68,9 @@ server.get("/mainpage", (req, res) => {
 });
 
 server.post("/apiPost", (req, res) => {
-  let body = req.body;
-  console.log(body.apiLink);
-  fetchLeaderboard(body.apiLink);
+  // let body = req.body;
+  // console.log(body.apiLink);
+  fetchLeaderboard();
   res.redirect("/");
 });
 

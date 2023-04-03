@@ -38,14 +38,14 @@ data.legTwo.forEach((element) => {
   });
 });
 data.qFlegOne.forEach((element) => {
-  fixtureLegOne.push({
+  QuarterLegOne.push({
     matchName: element.matchName,
     date: momentLocalFun(element.date),
   });
 });
 
 data.qFlegTwo.forEach((element) => {
-  fixtureLegTwo.push({
+  QuarterLegTwo.push({
     matchName: element.matchName,
     date: momentLocalFun(element.date),
   });
@@ -73,17 +73,19 @@ export function whichLeg() {
   ) {
     return "Round 16 Leg Two";
   } else if (
-    today.year() === dateObj(QuarterLegOne[7].date).year() &&
-    today.month() === dateObj(QuarterLegOne[7].date).month() &&
-    today.date() < dateObj(QuarterLegOne[7].date).date() &&
-    today.date() > dateObj(QuarterLegOne[7].date).date()
+    today.year() === dateObj(QuarterLegOne[3].date).year() &&
+    today.month() ===
+      dateObj(QuarterLegOne[3].date).month() &&
+    today.date() < dateObj(QuarterLegOne[3].date).date() &&
+    today.date() > dateObj(QuarterLegOne[3].date).date()
   ) {
     return "Quarter Final Leg One";
   } else if (
-    today.year() === dateObj(QuarterLegTwo[7].date).year() &&
-    today.month() === dateObj(QuarterLegTwo[7].date).month() &&
-    today.date() < dateObj(QuarterLegTwo[7].date).date() &&
-    today.date() > dateObj(QuarterLegTwo[7].date).date()
+    today.year() === dateObj(QuarterLegTwo[3].date).year() &&
+    today.month() ===
+      dateObj(QuarterLegTwo[3].date).month() &&
+    today.date() < dateObj(QuarterLegTwo[3].date).date() &&
+    today.date() > dateObj(QuarterLegTwo[3].date).date()
   ) {
     return "Quarter Final Leg Two";
   }

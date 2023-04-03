@@ -1,50 +1,55 @@
 [
   {
     "teamName": "Team-Goal Diggers",
-    "overallPoints": "469",
-    "currentGamedayPoints": "88"
-  },
-  { "teamName": "SASH", "overallPoints": "433", "currentGamedayPoints": "59" },
-  { "teamName": "ANTU", "overallPoints": "428", "currentGamedayPoints": "66" },
-  {
-    "teamName": "Nemesis CF",
-    "overallPoints": "420",
-    "currentGamedayPoints": "87"
-  },
-  {
-    "teamName": "Kenshin XI",
-    "overallPoints": "411",
-    "currentGamedayPoints": "64"
-  },
-  { "teamName": "Bitto", "overallPoints": "408", "currentGamedayPoints": "67" },
-  {
-    "teamName": "TEAM SAGE",
-    "overallPoints": "396",
+    "overallPoints": "654",
     "currentGamedayPoints": "102"
   },
+  { "teamName": "SASH", "overallPoints": "624", "currentGamedayPoints": "104" },
   {
-    "teamName": "Mikasa Ackerman",
-    "overallPoints": "386",
-    "currentGamedayPoints": "81"
+    "teamName": "Kenshin XI",
+    "overallPoints": "613",
+    "currentGamedayPoints": "121"
   },
   {
-    "teamName": "FC IOGムPoseidon",
-    "overallPoints": "367",
-    "currentGamedayPoints": "70"
+    "teamName": "Nemesis CF",
+    "overallPoints": "612",
+    "currentGamedayPoints": "108"
+  },
+  { "teamName": "ANTU", "overallPoints": "604", "currentGamedayPoints": "72" },
+  {
+    "teamName": "Bitto",
+    "overallPoints": "600",
+    "currentGamedayPoints": "112"
+  },
+  {
+    "teamName": "TEAM SAGE",
+    "overallPoints": "556",
+    "currentGamedayPoints": "99"
   },
   {
     "teamName": "Mayer Dua",
-    "overallPoints": "361",
-    "currentGamedayPoints": "76"
+    "overallPoints": "519",
+    "currentGamedayPoints": "97"
+  },
+  {
+    "teamName": "FC IOGムPoseidon",
+    "overallPoints": "493",
+    "currentGamedayPoints": "82"
   },
   {
     "teamName": "Shelby.Ltd",
-    "overallPoints": "355",
-    "currentGamedayPoints": "61"
+    "overallPoints": "485",
+    "currentGamedayPoints": "81"
+  },
+  {
+    "teamName": "Mikasa Ackerman",
+    "overallPoints": "474",
+    "currentGamedayPoints": "55"
   },
   {
     "teamName": "TJ United",
-    "overallPoints": "325",
-    "currentGamedayPoints": "64"
-  }
+    "overallPoints": "399",
+    "currentGamedayPoints": "35"
+  },
+  { "teamName": "2fps", "overallPoints": "115", "currentGamedayPoints": "77" }
 ]

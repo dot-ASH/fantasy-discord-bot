@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { EmbedBuilder } from "discord.js";
-import { whichLeg } from "./reminder.js";
+import { QuarterLegOne, QuarterLegTwo, whichLeg } from "./reminder.js";
 import { fixtureLegOne, fixtureLegTwo } from "./reminder.js";
 import moment from "moment-timezone";
 
@@ -16,6 +16,10 @@ if (thisleg === "Round 16 Leg One") {
   nextMatchday = fixtureLegOne[0].date;
 } else if (thisleg === "Round 16 Leg Two") {
   nextMatchday = fixtureLegTwo[0].date;
+}  else if (thisleg === "Quarter Final Leg One") {
+  nextMatchday = QuarterLegOne[0].date;
+} else if (thisleg === "Quarter Final Leg Two") {
+  nextMatchday = QuarterLegTwo[0].date;
 } else {
   nextMatchday = moment();
 }
@@ -64,6 +68,45 @@ fixtureEmbedded
     value: "\u200b",
   });
 fixtureLegTwo.forEach((element) => {
+  fixtureEmbedded.addFields({
+    name: `${element.matchName} \t---\t ${element.date}`,
+    value: "\u200b",
+  });
+});
+fixtureEmbedded
+  .addFields({
+    name: `-----------------------------------------------------------`,
+    value: "\u200b",
+  })
+  .addFields({
+    name: `Fixture \t\t\t\t\t Quarter Final Leg One`,
+    value: "\u200b",
+  })
+  .addFields({
+    name: `-----------------------------------------------------------`,
+    value: "\u200b",
+  });
+QuarterLegOne.forEach((element) => {
+  fixtureEmbedded.addFields({
+    name: `${element.matchName} \t---\t ${element.date}`,
+    value: "\u200b",
+  });
+});
+
+fixtureEmbedded
+  .addFields({
+    name: `-----------------------------------------------------------`,
+    value: "\u200b",
+  })
+  .addFields({
+    name: `Fixture \t\t\t\t\t Quarter Final Second Leg`,
+    value: "\u200b",
+  })
+  .addFields({
+    name: `-----------------------------------------------------------`,
+    value: "\u200b",
+  });
+QuarterLegTwo.forEach((element) => {
   fixtureEmbedded.addFields({
     name: `${element.matchName} \t---\t ${element.date}`,
     value: "\u200b",

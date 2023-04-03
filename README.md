@@ -1,9 +1,6 @@
-# fantasy-discord-bot
-
 *A discord bot built with Discord.js for UEFA CHAMPIONS LEAGUE FANTASY*
----
 
-## Features
+### Features
 ---
 
 - responds to discord slash command.
@@ -11,9 +8,9 @@
 - reminder for sub/transfer player.
 - and more..
 
-## Usage
+### Usage
 ---
 
-/fantasy to see the main menu.
-/about to learn more.
-<img src="/Assets/disbot.gif" />
+`/fantasy` to see the main menu. <br/>
+`/about to` learn more.
+<img src="/Assets/disbot.gif" width="400"/>

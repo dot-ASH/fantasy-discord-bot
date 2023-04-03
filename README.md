@@ -12,5 +12,6 @@
 ---
 
 `/fantasy` to see the main menu. <br/>
-`/about to` learn more.
+`/about to` learn more.  <br/>
+ <br/>
 <img src="/Assets/disbot.gif" width="400"/>

@@ -60,5 +60,41 @@
       "matchName": "Napoli vs Frankfurt",
       "date": "03/15/2023 20:00:00"
     }
+  ],
+  "qFlegOne": [
+    {
+      "matchName": "Benfica vs Inter",
+      "date": "04/11/2023 21:00:00"
+    },
+    {
+      "matchName": "Man City vs Bayern",
+      "date": "04/11/2023 21:00:00"
+    },
+    {
+      "matchName": "Real Madrid vs Chelsea",
+      "date": "04/12/2023 21:00:00"
+    },
+    {
+      "matchName": "Milan vs Napoli",
+      "date": "04/12/2023 21:00:00"
+    }
+  ],
+  "qFlegTwo": [
+    {
+      "matchName": "Milan vs Napoli",
+      "date": "04/18/2023 21:00:00"
+    },
+    {
+      "matchName": "Real Madrid vs Chelsea",
+      "date": "04/18/2023 21:00:00"
+    },
+    {
+      "matchName": "Man City vs Bayern",
+      "date": "04/19/2023 21:00:00"
+    },
+    {
+      "matchName": "Benfica vs Inter",
+      "date": "04/19/2023 21:00:00"
+    }
   ]
 }

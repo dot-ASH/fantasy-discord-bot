@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import { client } from "../bot.js";
 import { EmbedBuilder } from "discord.js";
 import leaderBoardEmbed from "./players.js";
+import fixtureEmbedded from "./fixture.js"
 import prevMotm from "./motm.js";
 config();
 const fantasy_role = process.env.ROLE || "";
@@ -31,7 +32,7 @@ export async function sendResult() {
     (channel) => channel.id === CHANNEL_ID
   );
   const exampleEmbed = new EmbedBuilder()
-    .setTitle(`Results & Man of the match`)
+    .setTitle(`Results & Man of the matches`)
     .setColor(0x5e548e)
     .setThumbnail("https://i3.lensdump.com/i/1nEUNH.gif")
     .setAuthor({
@@ -41,8 +42,8 @@ export async function sendResult() {
     })
 
     .addFields({
-      name: `Previous day Result`,
-      value: `------------------------------------------------`,
+      name: `Round of 16 Leg One`,
+      value: `-------------------------------------------`,
     })
     .addFields({
       name: "\u200b",
@@ -61,5 +62,15 @@ export async function sendLeaderboard() {
   await Channel.send({
     content: `${fantasy_role}`,
     embeds: [leaderBoardEmbed],
+  });
+}
+
+export async function sendFixture() {
+  const Channel = client.channels.cache.find(
+    (channel) => channel.id === CHANNEL_ID
+  );
+  await Channel.send({
+    content: `${fantasy_role}`,
+    embeds: [fixtureEmbedded],
   });
 }

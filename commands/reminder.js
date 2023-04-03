@@ -58,38 +58,42 @@ function dateObj(date) {
 
 export function whichLeg() {
   let today = moment().tz(timezone);
-  if (
-    today.year() === dateObj(fixtureLegOne[7].date).year() &&
+  console.log(today.month() , dateObj(QuarterLegOne[3].date).month ())
+  if(today.year() === dateObj(fixtureLegOne[7].date).year()){
+    if (today.month() < dateObj(fixtureLegOne[7].date).month() ||
     today.month() === dateObj(fixtureLegOne[7].date).month() &&
     today.date() < dateObj(fixtureLegOne[7].date).date() &&
     today.date() > 1
   ) {
     return "Round 16 Leg One";
   } else if (
-    today.year() === dateObj(fixtureLegTwo[7].date).year() &&
+      today.month() < dateObj(fixtureLegTwo[7].date).month() ||
     today.month() === dateObj(fixtureLegTwo[7].date).month() &&
     today.date() < dateObj(fixtureLegTwo[7].date).date() &&
     today.date() > dateObj(fixtureLegOne[7].date).date()
   ) {
     return "Round 16 Leg Two";
   } else if (
-    today.year() === dateObj(QuarterLegOne[3].date).year() &&
-    today.month() ===
-      dateObj(QuarterLegOne[3].date).month() &&
-    today.date() < dateObj(QuarterLegOne[3].date).date() &&
-    today.date() > dateObj(QuarterLegOne[3].date).date()
+      today.month() < dateObj(QuarterLegOne[3].date).month () ||
+    today.month() === dateObj(QuarterLegOne[3].date).month() 
+     && today.date() < dateObj(QuarterLegOne[3].date).date()
   ) {
     return "Quarter Final Leg One";
   } else if (
-    today.year() === dateObj(QuarterLegTwo[3].date).year() &&
+      today.month() <
+      dateObj(QuarterLegTwo[3].date).month() ||
     today.month() ===
       dateObj(QuarterLegTwo[3].date).month() &&
     today.date() < dateObj(QuarterLegTwo[3].date).date() &&
-    today.date() > dateObj(QuarterLegTwo[3].date).date()
+    today.date() > dateObj(QuarterLegOne[3].date).date()
   ) {
     return "Quarter Final Leg Two";
   }
+   return "Quarter Final";
+  }
 }
+
+    console.log(whichLeg())
 
 export async function reminder() {
   let today = moment().tz(timezone);

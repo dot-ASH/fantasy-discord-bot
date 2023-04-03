@@ -11,6 +11,8 @@ let data;
 
 let thisleg = whichLeg();
 
+// console.log(thisleg)
+
 data = await readJson("./data/newleaderboard.json");
 data.forEach((Element) => {
   players.push(Element);

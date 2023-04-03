@@ -34,52 +34,13 @@ const fixtureEmbedded = new EmbedBuilder()
     url: siteUrl,
   })
   .setColor(0x5e548e)
-  .setDescription("Round of 16")
+  .setDescription(thisleg)
   .addFields({
     name: `-----------------------------------------------------------`,
     value: "\u200b",
   })
   .addFields({
-    name: `Fixture \t\t\t\t\t 1st leg`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  });
-fixtureLegOne.forEach((element) => {
-  fixtureEmbedded.addFields({
-    name: `${element.matchName} \t---\t ${element.date}`,
-    value: "\u200b",
-  });
-});
-
-fixtureEmbedded
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `Fixture \t\t\t\t\t Second Leg`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  });
-fixtureLegTwo.forEach((element) => {
-  fixtureEmbedded.addFields({
-    name: `${element.matchName} \t---\t ${element.date}`,
-    value: "\u200b",
-  });
-});
-fixtureEmbedded
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `Fixture \t\t\t\t\t Quarter Final Leg One`,
+    name: `Quarter Final Leg One`,
     value: "\u200b",
   })
   .addFields({
@@ -99,7 +60,7 @@ fixtureEmbedded
     value: "\u200b",
   })
   .addFields({
-    name: `Fixture \t\t\t\t\t Quarter Final Second Leg`,
+    name: `Quarter Final`,
     value: "\u200b",
   })
   .addFields({

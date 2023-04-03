@@ -3,7 +3,7 @@ import axios from "axios";
 import fs from "fs";
 import bodyParser from "body-parser";
 import * as dotenv from "dotenv";
-import { sendLeaderboard, sendtxt, sendResult } from "./commands/sendtxt.js";
+import { sendLeaderboard, sendtxt, sendResult , sendFixture} from "./commands/sendtxt.js";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ function createJSONfile(location, data) {
   });
 }
 
-// FETCH THE LEAGUE DATA FROM API
+// FETCH THE LEAG UE DATA FROM API
 async function fetchLeaderboard() {
   fs.readFile("./data/leaderBoard.json", "utf8", function (err, contents) {
     if (err) {
@@ -106,6 +106,12 @@ server.post("/leaderboard", async (req, res) => {
   sendLeaderboard();
   res.redirect("mainpage");
 });
+
+server.post("/sendFixture", async (req, res) => {
+  sendFixture();
+  res.redirect("mainpage");
+});
+
 
 server.post("/result", async (req, res) => {
   sendResult();

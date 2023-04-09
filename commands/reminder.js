@@ -51,20 +51,20 @@ data.qFlegTwo.forEach((element) => {
   });
 });
 
-const nextMatchday = fixtureLegOne[0].date;
+var nextMatchday = fixtureLegOne[0].date;
 function dateObj(date) {
   return moment(date, "MMMM Do YYYY, h:mm:ss a");
 }
 
 export function whichLeg() {
   let today = moment().tz(timezone);
-  console.log(today.month() , dateObj(QuarterLegOne[3].date).month ())
   if(today.year() === dateObj(fixtureLegOne[7].date).year()){
     if (today.month() < dateObj(fixtureLegOne[7].date).month() ||
     today.month() === dateObj(fixtureLegOne[7].date).month() &&
     today.date() < dateObj(fixtureLegOne[7].date).date() &&
     today.date() > 1
   ) {
+    nextMatchday = fixtureLegOne[0].date;
     return "Round 16 Leg One";
   } else if (
       today.month() < dateObj(fixtureLegTwo[7].date).month() ||
@@ -72,12 +72,14 @@ export function whichLeg() {
     today.date() < dateObj(fixtureLegTwo[7].date).date() &&
     today.date() > dateObj(fixtureLegOne[7].date).date()
   ) {
+    nextMatchday = fixtureLegTwo[0].date;
     return "Round 16 Leg Two";
   } else if (
       today.month() < dateObj(QuarterLegOne[3].date).month () ||
     today.month() === dateObj(QuarterLegOne[3].date).month() 
      && today.date() < dateObj(QuarterLegOne[3].date).date()
   ) {
+    nextMatchday = QuarterLegOne[0].date;
     return "Quarter Final Leg One";
   } else if (
       today.month() <
@@ -87,14 +89,13 @@ export function whichLeg() {
     today.date() < dateObj(QuarterLegTwo[3].date).date() &&
     today.date() > dateObj(QuarterLegOne[3].date).date()
   ) {
+    nextMatchday = QuarterLegTwo[0].date;
     return "Quarter Final Leg Two";
   }
    return "Quarter Final";
   }
 }
-
-    console.log(whichLeg())
-
+  console.log(whichLeg())
 export async function reminder() {
   let today = moment().tz(timezone);
   console.log(today.date(), today.hour(), today.minute(), today.second());

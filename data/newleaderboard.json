@@ -1,55 +1,41 @@
 [
   {
-    "teamName": "Team-Goal Diggers",
-    "overallPoints": "654",
-    "currentGamedayPoints": "102"
-  },
-  { "teamName": "SASH", "overallPoints": "624", "currentGamedayPoints": "104" },
-  {
-    "teamName": "Kenshin XI",
-    "overallPoints": "613",
-    "currentGamedayPoints": "121"
-  },
-  {
-    "teamName": "Nemesis CF",
-    "overallPoints": "612",
-    "currentGamedayPoints": "108"
-  },
-  { "teamName": "ANTU", "overallPoints": "604", "currentGamedayPoints": "72" },
-  {
-    "teamName": "Bitto",
-    "overallPoints": "600",
-    "currentGamedayPoints": "112"
-  },
-  {
-    "teamName": "TEAM SAGE",
-    "overallPoints": "556",
-    "currentGamedayPoints": "99"
-  },
-  {
-    "teamName": "Mayer Dua",
-    "overallPoints": "519",
-    "currentGamedayPoints": "97"
-  },
-  {
-    "teamName": "FC IOGムPoseidon",
-    "overallPoints": "493",
-    "currentGamedayPoints": "82"
-  },
-  {
-    "teamName": "Shelby.Ltd",
-    "overallPoints": "485",
+    "teamName": "Mayer DUA",
+    "overallPoints": "81",
     "currentGamedayPoints": "81"
   },
   {
-    "teamName": "Mikasa Ackerman",
-    "overallPoints": "474",
-    "currentGamedayPoints": "55"
+    "teamName": "Arif Rafi",
+    "overallPoints": "80",
+    "currentGamedayPoints": "80"
   },
   {
-    "teamName": "TJ United",
-    "overallPoints": "399",
-    "currentGamedayPoints": "35"
+    "teamName": "Nemesis CF",
+    "overallPoints": "77",
+    "currentGamedayPoints": "77"
   },
-  { "teamName": "2fps", "overallPoints": "115", "currentGamedayPoints": "77" }
+  {
+    "teamName": "Kenshin XI",
+    "overallPoints": "72",
+    "currentGamedayPoints": "72"
+  },
+  { "teamName": "Aakaai", "overallPoints": "69", "currentGamedayPoints": "69" },
+  { "teamName": "S.ASH", "overallPoints": "69", "currentGamedayPoints": "69" },
+  {
+    "teamName": "Mikasa Ackerman",
+    "overallPoints": "67",
+    "currentGamedayPoints": "67"
+  },
+  {
+    "teamName": "Poseidon's 11",
+    "overallPoints": "64",
+    "currentGamedayPoints": "64"
+  },
+  {
+    "teamName": "TEAM SAGE",
+    "overallPoints": "58",
+    "currentGamedayPoints": "58"
+  },
+  { "teamName": "Bitto", "overallPoints": "55", "currentGamedayPoints": "55" },
+  { "teamName": "2fps", "overallPoints": "53", "currentGamedayPoints": "53" }
 ]

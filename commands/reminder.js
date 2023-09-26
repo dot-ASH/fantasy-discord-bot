@@ -3,395 +3,171 @@ import { client } from "../bot.js";
 import { EmbedBuilder } from "discord.js";
 import { readJson } from "../server.js";
 import moment from "moment";
+import "moment-timezone";
 
 config();
-let data;
-let timezone = "Asia/Dhaka";
-let remainingDay;
+const TIMEZONE = process.env.TIME_ZONE || "Asia/Dhaka";
+const FANTASY_ROLE = process.env.ROLE || "";
+const CHANNEL_ID = process.env.CHANNEL_ID;
 
-export let fixtureLegOne = [];
-export let fixtureLegTwo = [];
-export let QuarterLegOne = [];
-export let QuarterLegTwo = [];
-const minOffset = 1;
-const hourOffset = 20;
+let remainingDay;
+const minOffset = 24;
+const hourOffset = 21;
 const subOffset = 1;
 const tranOffset = 3;
-const fantasy_role = process.env.ROLE || "";
-data = await readJson("./data/fixture.json");
 
-function momentLocalFun(date) {
-  return moment.tz(date, timezone).format("MMMM Do YYYY, h:mm:ss a");
+let data = await readJson("./data/newFixture.json");
+const [
+  matchDayOne,
+  matchDayTwo,
+  matchDayThree,
+  matchDayFour,
+  matchDayFive,
+  matchDaySix,
+] = data;
+
+export function localTime(cetTime) {
+  const cetTimeZone = "Europe/Berlin";
+  const parsedCETTime = moment.tz(cetTime, "MM/DD/YYYY HH:mm:ss", cetTimeZone);
+  const bdtTime = parsedCETTime.clone().tz(TIMEZONE);
+  return bdtTime;
 }
 
-data.legOne.forEach((element) => {
-  fixtureLegOne.push({
-    matchName: element.matchName,
-    date: momentLocalFun(element.date),
-  });
-});
-
-data.legTwo.forEach((element) => {
-  fixtureLegTwo.push({
-    matchName: element.matchName,
-    date: momentLocalFun(element.date),
-  });
-});
-data.qFlegOne.forEach((element) => {
-  QuarterLegOne.push({
-    matchName: element.matchName,
-    date: momentLocalFun(element.date),
-  });
-});
-
-data.qFlegTwo.forEach((element) => {
-  QuarterLegTwo.push({
-    matchName: element.matchName,
-    date: momentLocalFun(element.date),
-  });
-});
-
-var nextMatchday = fixtureLegOne[0].date;
-function dateObj(date) {
-  return moment(date, "MMMM Do YYYY, h:mm:ss a");
+export function cetTimeDate(matchday, element) {
+  return matchday.matches[element].date;
 }
 
-export function whichLeg() {
-  let today = moment().tz(timezone);
-  if(today.year() === dateObj(fixtureLegOne[7].date).year()){
-    if (today.month() < dateObj(fixtureLegOne[7].date).month() ||
-    today.month() === dateObj(fixtureLegOne[7].date).month() &&
-    today.date() < dateObj(fixtureLegOne[7].date).date() &&
-    today.date() > 1
+export function dateFormate(date) {
+  return moment(date, "MM/DD/YYYY HH:mm:ss").format("MMMM Do YYYY, h:mm:ss a");
+}
+
+let today = moment().tz(TIMEZONE);
+let nextMatchday = matchDayOne.matches[0].date;
+
+function subDays(num1, num2) {
+  let result = Math.abs(num1 - num2);
+  return result > 0 ? result : 1;
+}
+
+function compareDate(matchday) {
+  const cetTime = cetTimeDate(matchday, matchday.matches.length - 1);
+  const bdtTime = localTime(cetTime);
+  if (
+    today.month() < bdtTime.month() ||
+    (today.month() === bdtTime.month() &&
+      today.date() < bdtTime.date() &&
+      today.date() > 1)
   ) {
-    nextMatchday = fixtureLegOne[0].date;
-    return "Round 16 Leg One";
-  } else if (
-      today.month() < dateObj(fixtureLegTwo[7].date).month() ||
-    today.month() === dateObj(fixtureLegTwo[7].date).month() &&
-    today.date() < dateObj(fixtureLegTwo[7].date).date() &&
-    today.date() > dateObj(fixtureLegOne[7].date).date()
-  ) {
-    nextMatchday = fixtureLegTwo[0].date;
-    return "Round 16 Leg Two";
-  } else if (
-      today.month() < dateObj(QuarterLegOne[3].date).month () ||
-    today.month() === dateObj(QuarterLegOne[3].date).month() 
-     && today.date() < dateObj(QuarterLegOne[3].date).date()
-  ) {
-    nextMatchday = QuarterLegOne[0].date;
-    return "Quarter Final Leg One";
-  } else if (
-      today.month() <
-      dateObj(QuarterLegTwo[3].date).month() ||
-    today.month() ===
-      dateObj(QuarterLegTwo[3].date).month() &&
-    today.date() < dateObj(QuarterLegTwo[3].date).date() &&
-    today.date() > dateObj(QuarterLegOne[3].date).date()
-  ) {
-    nextMatchday = QuarterLegTwo[0].date;
-    return "Quarter Final Leg Two";
+    return true;
+  } else return false;
+}
+
+export const matchDays = [
+  matchDayOne,
+  matchDayTwo,
+  matchDayThree,
+  matchDayFour,
+  matchDayFive,
+  matchDaySix,
+];
+
+export function whichMd() {
+  for (let i = 0; i < matchDays.length; i++) {
+    if (compareDate(matchDays[i])) {
+      nextMatchday = matchDays[i].matches[0].date;
+      return `Matchday ${i + 1}`;
+    }
   }
-   return "Quarter Final";
-  }
+
+  return "No match";
 }
-  console.log(whichLeg())
+
+whichMd();
+let thisLeg = whichMd();
+console.log(thisLeg);
+remainingDay = moment(
+  dateFormate(localTime(nextMatchday)),
+  "MMMM Do YYYY, h:mm:ss a"
+).fromNow();
+console.log(remainingDay);
+console.log(dateFormate(localTime(nextMatchday)));
+
 export async function reminder() {
-  let today = moment().tz(timezone);
+  let today = moment().tz(TIMEZONE);
   console.log(today.date(), today.hour(), today.minute(), today.second());
+  const Channel = client.channels.cache.find(
+    (channel) => channel.id === CHANNEL_ID
+  );
 
-  // LEG ONE TRANSFER WINDOW
-  if (
-    today.year() === dateObj(fixtureLegOne[0].date).year() &&
-    today.month() === dateObj(fixtureLegOne[0].date).month() &&
-    today.date() === dateObj(fixtureLegOne[0].date).date() - tranOffset &&
-    today.hour() === hourOffset &&
-    today.minute() === minOffset
-  ) {
-    let thisLeg = whichLeg();
-    remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-    const Channel = client.channels.cache.find(
-      (channel) => channel.id === process.env.CHANNEL_ID
-    );
-    const exampleEmbed = new EmbedBuilder()
-      .setTitle(`${thisLeg} is ${remainingDay}`)
-      .setColor(0x5e548e)
-      .addFields({
-        name: "\u200b",
-        value: `Make transfer, Be changed, fly high!`,
-      })
-      .addFields({
-        name: `Be Prepared!`,
-        value: "\u200b",
-      })
-      .addFields({
-        name: `Next matches: ${fixtureLegOne[0].matchName}`,
-        value: `at ${fixtureLegOne[0].date}`,
-      })
-      .addFields({
-        name: `${fixtureLegOne[1].matchName}`,
-        value: `at ${fixtureLegOne[1].date}`,
+  async function sendTransferMatchReminder(matchDayIndex) {
+    const matchDay = matchDays[matchDayIndex];
+    const match = matchDay.matches[0];
+    if (
+      today.year() === localTime(match.date).year() &&
+      today.month() === localTime(match.date).month() &&
+      today.date() === subDays(localTime(cetTimeDate(matchDay, 0)).date(), tranOffset) &&
+      today.hour() === hourOffset &&
+      today.minute() === minOffset
+    ) {
+      const exampleEmbed = new EmbedBuilder()
+        .setTitle(`${thisLeg} is ${remainingDay}`)
+        .setColor(0x5e548e)
+        .addFields({
+          name: "\u200b",
+          value: `The transfer window is open!`,
+        })
+        .addFields({
+          name: `Be Prepared!`,
+          value: "\u200b",
+        });
+
+      await Channel.send({
+        content: `Hey <@&${FANTASY_ROLE}>`,
+        embeds: [exampleEmbed],
       });
-    await Channel.send({
-      content: `Hey ${fantasy_role}`,
-      embeds: [exampleEmbed],
-    });
-  }
-  // LEG TWO TRANSFER WINDOW
-  if (
-    today.year() === dateObj(fixtureLegTwo[0].date).year() &&
-    today.month() === dateObj(fixtureLegTwo[0].date).month() &&
-    today.date() === dateObj(fixtureLegTwo[0].date).date() - tranOffset &&
-    today.hour() === hourOffset &&
-    today.minute() === minOffset
-  ) {
-    let thisLeg = whichLeg();
-    remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-    const Channel = client.channels.cache.find(
-      (channel) => channel.id === process.env.CHANNEL_ID
-    );
-    const exampleEmbed = new EmbedBuilder()
-      .setTitle(`${thisLeg} is ${remainingDay}`)
-      .setColor(0x5e548e)
-      .addFields({
-        name: "\u200b",
-        value: `Make transfer, Be changed, fly high!`,
-      })
-      .addFields({
-        name: `Be Prepared!`,
-        value: "\u200b",
-      })
-      .addFields({
-        name: `Next matches: ${fixtureLegTwo[0].matchName}`,
-        value: `at ${fixtureLegTwo[0].date}`,
-      })
-      .addFields({
-        name: `${fixtureLegTwo[1].matchName}`,
-        value: `at ${fixtureLegTwo[1].date}`,
-      });
-    await Channel.send({
-      content: `Hey ${fantasy_role}`,
-      embeds: [exampleEmbed],
-    });
+    }
   }
 
-  // Quarter LEG one TRANSFER WINDOW
-  if (
-    today.year() === dateObj(QuarterLegOne[0].date).year() &&
-    today.month() === dateObj(QuarterLegOne[0].date).month() &&
-    today.date() === dateObj(QuarterLegOne[0].date).date() - tranOffset &&
-    today.hour() === hourOffset &&
-    today.minute() === minOffset
-  ) {
-    let thisLeg = whichLeg();
-    remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-    const Channel = client.channels.cache.find(
-      (channel) => channel.id === process.env.CHANNEL_ID
-    );
-    const exampleEmbed = new EmbedBuilder()
-      .setTitle(`${thisLeg} is ${remainingDay}`)
-      .setColor(0x5e548e)
-      .addFields({
-        name: "\u200b",
-        value: `Make transfer, Be changed, fly high!`,
-      })
-      .addFields({
-        name: `Be Prepared!`,
-        value: "\u200b",
-      })
-      .addFields({
-        name: `Next matches: ${QuarterLegOne[0].matchName}`,
-        value: `at ${QuarterLegOne[0].date}`,
-      })
-      .addFields({
-        name: `${QuarterLegOne[1].matchName}`,
-        value: `at ${QuarterLegOne[1].date}`,
-      });
-    await Channel.send({
-      content: `Hey ${fantasy_role}`,
-      embeds: [exampleEmbed],
-    });
-  }
-  // Quarter LEG two TRANSFER WINDOW
-  if (
-    today.year() === dateObj(QuarterLegTwo[0].date).year() &&
-    today.month() === dateObj(QuarterLegTwo[0].date).month() &&
-    today.date() === dateObj(QuarterLegTwo[0].date).date() - tranOffset &&
-    today.hour() === hourOffset &&
-    today.minute() === minOffset
-  ) {
-    let thisLeg = whichLeg();
-    remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-    const Channel = client.channels.cache.find(
-      (channel) => channel.id === process.env.CHANNEL_ID
-    );
-    const exampleEmbed = new EmbedBuilder()
-      .setTitle(`${thisLeg} is ${remainingDay}`)
-      .setColor(0x5e548e)
-      .addFields({
-        name: "\u200b",
-        value: `Make transfer, Be changed, fly high!`,
-      })
-      .addFields({
-        name: `Be Prepared!`,
-        value: "\u200b",
-      })
-      .addFields({
-        name: `Next matches: ${QuarterLegTwo[0].matchName}`,
-        value: `at ${QuarterLegTwo[0].date}`,
-      })
-      .addFields({
-        name: `${QuarterLegTwo[1].matchName}`,
-        value: `at ${QuarterLegTwo[1].date}`,
-      });
-    await Channel.send({
-      content: `Hey ${fantasy_role}`,
-      embeds: [exampleEmbed],
-    });
+  async function sendSubMatchReminder(matchDayIndex) {
+    const matchDay = matchDays[matchDayIndex];
+    let isMentioned = false;
+    for (let i = 0; i < matchDay.matches.length; i++) {
+      if (
+        today.year() === localTime(matchDay.matches[i].date).year() &&
+        today.month() === localTime(matchDay.matches[i].date).month() &&
+        today.date() === subDays(localTime(cetTimeDate(matchDay, i)).date(), subOffset) &&
+        today.hour() === hourOffset &&
+        today.minute() === minOffset
+      ) {
+        remainingDay = moment(
+          dateFormate(localTime(matchDay.matches[i].date)),
+          "MMMM Do YYYY, h:mm:ss a"
+        ).fromNow();
+        const exampleEmbed = new EmbedBuilder()
+          .setTitle(`Matches is ${remainingDay}`)
+          .setColor(0x5e548e)
+          .addFields({
+            name: "\u200b",
+            value: `Sub/Transfer window is open!`,
+          })
+          .addFields({
+            name: `${matchDay.matches[i].matchName}`,
+            value: `at ${dateFormate(localTime(matchDay.matches[i].date))}`,
+          });
+        await Channel.send({
+          content: isMentioned ? "" : `Hey <@&${FANTASY_ROLE}>`,
+          embeds: [exampleEmbed],
+        });
+        isMentioned = true;
+      }
+    }
   }
 
-  // LEG ONE SUB WINDOW
-  for (let i = 0; i < fixtureLegOne.length; i++) {
-    if (
-      today.year() === dateObj(fixtureLegOne[i].date).year() &&
-      today.month() === dateObj(fixtureLegOne[i].date).month() &&
-      today.date() === dateObj(fixtureLegOne[i].date).date() - subOffset &&
-      today.hour() === hourOffset &&
-      today.minute() === minOffset
-    ) {
-      let thisLeg = whichLeg();
-      const nextMatchday = fixtureLegOne[i].date;
-      remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-      const Channel = client.channels.cache.find(
-        (channel) => channel.id === process.env.CHANNEL_ID
-      );
-      const exampleEmbed = new EmbedBuilder()
-        .setTitle(`${thisLeg} is ${remainingDay}`)
-        .setColor(0x5e548e)
-        .addFields({
-          name: "\u200b",
-          value: `Sub/Transfer window is open!`,
-        })
-        .addFields({
-          name: `Make sure you check that out!`,
-          value: "\u200b",
-        })
-        .addFields({
-          name: `Next match: ${fixtureLegOne[i].matchName}`,
-          value: `at ${fixtureLegOne[i].date}`,
-        });
-      await Channel.send({
-        content: `Hey ${fantasy_role}`,
-        embeds: [exampleEmbed],
-      });
-    }
+  for (let i = 0; i < matchDays.length; i++) {
+    sendTransferMatchReminder(i);
   }
-  // LEG TWO SUB WINDOW
-  for (let i = 0; i < fixtureLegTwo.length; i++) {
-    if (
-      today.year() === dateObj(fixtureLegTwo[i].date).year() &&
-      today.month() === dateObj(fixtureLegTwo[i].date).month() &&
-      today.date() === dateObj(fixtureLegTwo[i].date).date() - subOffset &&
-      today.hour() === hourOffset &&
-      today.minute() === minOffset
-    ) {
-      let thisLeg = whichLeg();
-      const nextMatchday = fixtureLegTwo[i].date;
-      remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-      const Channel = client.channels.cache.find(
-        (channel) => channel.id === process.env.CHANNEL_ID
-      );
-      const exampleEmbed = new EmbedBuilder()
-        .setTitle(`${thisLeg} is ${remainingDay}`)
-        .setColor(0x5e548e)
-        .addFields({
-          name: "\u200b",
-          value: `Sub/Transfer window is open!`,
-        })
-        .addFields({
-          name: `Make sure you check that out!`,
-          value: "\u200b",
-        })
-        .addFields({
-          name: `Next match: ${fixtureLegTwo[i].matchName}`,
-          value: `at ${fixtureLegTwo[i].date}`,
-        });
-      await Channel.send({
-        content: `Hey ${fantasy_role}`,
-        embeds: [exampleEmbed],
-      });
-    }
-  }
-  // Q LEG 1 SUB WINDOW
-  for (let i = 0; i < QuarterLegOne.length; i++) {
-    if (
-      today.year() === dateObj(QuarterLegOne[i].date).year() &&
-      today.month() === dateObj(QuarterLegOne[i].date).month() &&
-      today.date() === dateObj(QuarterLegOne[i].date).date() - subOffset &&
-      today.hour() === hourOffset &&
-      today.minute() === minOffset
-    ) {
-      let thisLeg = whichLeg();
-      const nextMatchday = QuarterLegOne[i].date;
-      remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-      const Channel = client.channels.cache.find(
-        (channel) => channel.id === process.env.CHANNEL_ID
-      );
-      const exampleEmbed = new EmbedBuilder()
-        .setTitle(`${thisLeg} is ${remainingDay}`)
-        .setColor(0x5e548e)
-        .addFields({
-          name: "\u200b",
-          value: `Sub/Transfer window is open!`,
-        })
-        .addFields({
-          name: `Make sure you check that out!`,
-          value: "\u200b",
-        })
-        .addFields({
-          name: `Next match: ${QuarterLegOne[i].matchName}`,
-          value: `at ${QuarterLegOne[i].date}`,
-        });
-      await Channel.send({
-        content: `Hey ${fantasy_role}`,
-        embeds: [exampleEmbed],
-      });
-    }
-  }
-  // Q LEG 2 SUB WINDOW
-  for (let i = 0; i < QuarterLegTwo.length; i++) {
-    if (
-      today.year() === dateObj(QuarterLegTwo[i].date).year() &&
-      today.month() === dateObj(QuarterLegTwo[i].date).month() &&
-      today.date() === dateObj(QuarterLegTwo[i].date).date() - subOffset &&
-      today.hour() === hourOffset &&
-      today.minute() === minOffset
-    ) {
-      let thisLeg = whichLeg();
-      const nextMatchday = QuarterLegTwo[i].date;
-      remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
-      const Channel = client.channels.cache.find(
-        (channel) => channel.id === process.env.CHANNEL_ID
-      );
-      const exampleEmbed = new EmbedBuilder()
-        .setTitle(`${thisLeg} is ${remainingDay}`)
-        .setColor(0x5e548e)
-        .addFields({
-          name: "\u200b",
-          value: `Sub/Transfer window is open!`,
-        })
-        .addFields({
-          name: `Make sure you check that out!`,
-          value: "\u200b",
-        })
-        .addFields({
-          name: `Next match: ${QuarterLegTwo[i].matchName}`,
-          value: `at ${QuarterLegTwo[i].date}`,
-        });
-      await Channel.send({
-        content: `Hey ${fantasy_role}`,
-        embeds: [exampleEmbed],
-      });
-    }
+
+  for (let i = 0; i < matchDays.length; i++) {
+    sendSubMatchReminder(i);
   }
 }

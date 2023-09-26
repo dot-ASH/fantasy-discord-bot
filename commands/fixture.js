@@ -1,7 +1,6 @@
 import * as dotenv from "dotenv";
 import { EmbedBuilder } from "discord.js";
-import { QuarterLegOne, QuarterLegTwo, whichLeg } from "./reminder.js";
-import { fixtureLegOne, fixtureLegTwo } from "./reminder.js";
+import { matchDays, whichMd, localTime, dateFormate } from "./reminder.js";
 import moment from "moment-timezone";
 
 dotenv.config();
@@ -10,75 +9,50 @@ const fixtureUrl =
   "https://www.uefa.com/uefachampionsleague/fixtures-results/#/rd/2001674-1";
 
 let nextMatchday;
-let thisleg = whichLeg();
+let thisleg = whichMd();
 
-if (thisleg === "Round 16 Leg One") {
-  nextMatchday = fixtureLegOne[0].date;
-} else if (thisleg === "Round 16 Leg Two") {
-  nextMatchday = fixtureLegTwo[0].date;
-}  else if (thisleg === "Quarter Final Leg One") {
-  nextMatchday = QuarterLegOne[0].date;
-} else if (thisleg === "Quarter Final Leg Two") {
-  nextMatchday = QuarterLegTwo[0].date;
-} else {
-  nextMatchday = moment();
+switch (thisleg) {
+  case "Matchday 1":
+    nextMatchday = matchDays[0].matches[0].date;
+    break;
+  case "Matchday 2":
+    nextMatchday = matchDays[1].matches[0].date;
+    break;
+  case "Matchday 3":
+    nextMatchday = matchDays[2].matches[0].date;
+    break;
+  case "Matchday 4":
+    nextMatchday = matchDays[3].matches[0].date;
+    break;
+  case "Matchday 5":
+    nextMatchday = matchDays[4].matches[0].date;
+    break;
+  case "Matchday 6":
+    nextMatchday = matchDays[5].matches[0].date;
+    break;
+  default:
+    nextMatchday = moment();
+    break;
 }
-const remainingDay = moment(nextMatchday, "MMMM Do YYYY, h:mm:ss a").fromNow();
+
+let remainingDay = moment(
+  dateFormate(localTime(nextMatchday)),
+  "MMMM Do YYYY, h:mm:ss a"
+).fromNow();
 
 const fixtureEmbedded = new EmbedBuilder()
-  .setTitle("Fixture")
+  .setTitle("Click here to see the fixture")
   .setURL(fixtureUrl)
   .setAuthor({
     name: "Fantasy League Bot",
     iconURL: "https://i1.lensdump.com/i/17MRxo.jpg",
     url: siteUrl,
   })
+  .addFields({
+    name: `Current matchday: ${thisleg}`,
+    value: "\u200b",
+  })
   .setColor(0x5e548e)
-  .setDescription(thisleg)
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `Quarter Final Leg One`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  });
-QuarterLegOne.forEach((element) => {
-  fixtureEmbedded.addFields({
-    name: `${element.matchName} \t---\t ${element.date}`,
-    value: "\u200b",
-  });
-});
-
-fixtureEmbedded
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `Quarter Final`,
-    value: "\u200b",
-  })
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  });
-QuarterLegTwo.forEach((element) => {
-  fixtureEmbedded.addFields({
-    name: `${element.matchName} \t---\t ${element.date}`,
-    value: "\u200b",
-  });
-});
-
-fixtureEmbedded
-  .addFields({
-    name: `-----------------------------------------------------------`,
-    value: "\u200b",
-  })
   .setFooter({
     text: `Match from ${thisleg} is ${remainingDay}`,
   });

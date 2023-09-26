@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { whichLeg } from "./reminder.js";
+import { whichMd } from "./reminder.js";
 import { EmbedBuilder } from "discord.js";
 import { readJson } from "../server.js";
 
@@ -9,7 +9,7 @@ const leagueUrl = process.env.LEAGUE_URL;
 export const players = [];
 let data;
 
-let thisleg = whichLeg();
+let thisleg = whichMd();
 
 // console.log(thisleg)
 

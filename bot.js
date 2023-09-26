@@ -1,5 +1,4 @@
 import keepAlive from "./server.js";
-import { reminder } from "./commands/reminder.js";
 import { config } from "dotenv";
 import {
   Client,
@@ -13,11 +12,10 @@ import {
   leaderboard,
   score,
   fixtureMenu,
-  motm,
   aboutInt,
   prevWinner,
 } from "./interactions/interactionCom.js";
-// import { timer } from "./commands/commands/reminder.js.js";
+import { reminder } from "./commands/reminder.js";
 
 /*
 SYSTEM
@@ -76,6 +74,5 @@ INTERACTIONS
 client.on(leaderboard.name, leaderboard.execute);
 client.on(score.name, score.execute);
 client.on(fixtureMenu.name, fixtureMenu.execute);
-client.on(motm.name, motm.execute);
 client.on(prevWinner.name, prevWinner.execute);
 client.on(aboutInt.name, aboutInt.execute);

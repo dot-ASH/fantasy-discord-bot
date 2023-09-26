@@ -5,52 +5,156 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="main.css" />
-    <style>
-      body {
-        background-color: rgb(46, 46, 46);
-        color: antiquewhite;
-        text-align: center;
-      }
-    </style>
+    <style></style>
     <title>Document</title>
   </head>
   <body>
-    <h1>Fetch the Data</h1>
-    <form action="/apiPost" method="post">
-      <label for="apiLink">API: </label><br />
-      <input
-        id="apiLink"
-        type="text"
-        name="apiLink"
-        placeholder="..."
-      /><br /><br />
-      <input type="submit" value="Fetch" />
-    </form>
-    <h1>Send Messages</h1>
+    <h1 id="content" style="display: none">*** SENT ***</h1>
+    <h1>---- Fetch the Leaderboard ----</h1>
+    <div class="container">
+      <label>The JSON API: </label><br />
+      <form action="apiOldPost" method="post">
+        <input type="text" placeholder="Provide the API URL" name="url" />
+        <button id="postOldButton" type="submit">Fetch LEADERBOARD</button>
+      </form>
+
+      <button id="postButton" type="submit">Simplify LEADERBOARD</button>
+    </div>
+
+    <h1>---- Fetch the Fixture ----</h1>
+    <div class="container">
+      <button id="fixtureButton" type="submit">Fetch FIXTURE</button>
+      <button id="fixtureNewButton" type="submit">Simplify FIXTURE</button>
+    </div>
+
+    <h1>---- Send Messages ----</h1>
     <form action="txt" method="post">
       <div class="container">
         <label>Your message: </label><br />
         <textarea name="text" style="width: 250px; height: 150px"></textarea
-        ><br /> <br />
-        <button type="submit">SEND MESSAGE</button>
+        ><br />
+        <br />
+        <button class="button" type="submit">SEND MESSAGE</button>
       </div>
     </form>
-    <h1>Send leaderboard</h1>
+
+    <h1>---- Send leaderboard ----</h1>
     <form action="leaderboard" method="post">
       <div class="container">
-        <button type="submit">SEND LEADERBOARD</button>
+        <button class="button" type="submit">SEND LEADERBOARD</button>
       </div>
     </form>
-        <form action="sendFixture" method="post">
+
+    <h1>---- Send fixture ----</h1>
+    <form action="sendFixture" method="post">
       <div class="container">
-        <button type="submit">SEND FIXTURE</button>
-      </div>
-    </form>
-    <h1>Send result</h1>
-    <form action="result" method="post">
-      <div class="container">
-        <button type="submit">SEND RESULT</button>
+        <button class="button" type="submit">SEND FIXTURE</button>
       </div>
     </form>
   </body>
+  <script>
+    document.getElementById("postButton").addEventListener("click", () => {
+      const data = {
+        message: "This is the message to be sent in the POST request",
+      };
+
+      fetch("/apiPost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Response received:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+
+    //     document
+    // .getElementById("postOldButton")
+    // .addEventListener("click", () => {
+    //   const data = {
+    //     message: "This is the message to be sent in the POST request",
+    //   };
+
+    //   fetch("/apiOldPost", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(data),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log("Response received:", data);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error:", error);
+    //     });
+    // });
+
+    document.getElementById("fixtureButton").addEventListener("click", () => {
+      const data = {
+        message: "This is the message to be sent in the POST request",
+      };
+
+      fetch("/apiFixture", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Response received:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+    document
+      .getElementById("fixtureNewButton")
+      .addEventListener("click", () => {
+        const data = {
+          message: "This is the message to be sent in the POST request",
+        };
+
+        fetch("/apiPostFixture", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Response received:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+
+    const buttons = document.querySelectorAll(".button");
+    const content = document.getElementById("content");
+    buttons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        console.log("Button clicked:", event.target.innerText);
+        showFor10Seconds();
+      });
+      function showFor10Seconds() {
+        const content = document.getElementById("content");
+        content.style.display = "block";
+
+        setTimeout(() => {
+          content.style.display = "none";
+        }, 10000);
+      }
+    });
+  </script>
 </html>

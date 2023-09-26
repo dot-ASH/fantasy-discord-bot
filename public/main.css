@@ -1,4 +1,36 @@
 body {
-  width: 100vw;
-  height: 100vh;
+  padding: 2rem; 
+  background-color: rgb(46, 46, 46);
+  color: antiquewhite;
+  text-align: center;
 }
+
+button{
+  cursor: pointer;
+}
+
+button, textarea, label, input{
+  padding: 0.5rem;
+  background-color: rgb(46, 46, 46);
+  color: antiquewhite;
+  border-radius: 10px;
+  border-width: 1px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+h1{
+  margin: 1.5rem;
+  font-size: 22px;
+}
+
+.container{
+  /* widht: 100%; */
+  justify-content: center;
+  display: flex;
+  flex-direction: row,
+  padding: 1rem;
+  gap: 1rem; 
+  align-items: center;
+}
+

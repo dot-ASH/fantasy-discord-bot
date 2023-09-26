@@ -1,14 +1,13 @@
 import { SlashCommandBuilder } from "discord.js";
 import { players } from "./players.js";
 
-let choices=[];
+let choices = [];
 for (let i = 0; i < players.length; i++) {
-  choices.push( {
+  choices.push({
     name: players[i].teamName,
     value: players[i].teamName.replace(/\W/g, "").toLowerCase(),
   });
 }
-
 
 const fantasyCommand = new SlashCommandBuilder()
   .setName("fantasy")
@@ -21,7 +20,6 @@ const fantasyCommand = new SlashCommandBuilder()
       .addChoices(
         { name: "Leaderborard", value: "leaderboard" },
         { name: "Fixture", value: "fixture" },
-        { name: "Previous Result & MOTM", value: "motm" },
         { name: "Previous Winner :v", value: "prevWinner" }
       )
   )

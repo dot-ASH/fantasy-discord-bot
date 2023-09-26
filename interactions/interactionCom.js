@@ -4,7 +4,11 @@ dotenv.config();
 
 import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import fixtureEmbedded from "../commands/fixture.js";
-import prevMotm from "../commands/motm.js";
+import moment from "moment";
+import "moment-timezone";
+
+let nowYear = moment().tz("Asia/Dhaka").year();
+let prevYear = nowYear - 1;
 
 let choices = [];
 for (let i = 0; i < players.length; i++) {
@@ -14,7 +18,6 @@ for (let i = 0; i < players.length; i++) {
     points: players[i].overallPoints,
   });
 }
-
 
 export const leaderboard = {
   name: "interactionCreate",
@@ -92,49 +95,6 @@ export const fixtureMenu = {
     }
   },
 };
-// // ADMIN
-
-export const motm = {
-  name: "interactionCreate",
-  async execute(interaction) {
-    try {
-      if (
-        interaction.isChatInputCommand &&
-        interaction.options.get("menu") !== null
-      ) {
-        if (interaction.options.get("menu").value === "motm") {
-          const Embed = new EmbedBuilder()
-            .setTitle(`Results & Man of the match`)
-            .setColor(0x5e548e)
-            .setThumbnail("https://i3.lensdump.com/i/1nEUNH.gif")
-            .setAuthor({
-              name: "Fantasy League Bot",
-              iconURL: "https://i1.lensdump.com/i/17MRxo.jpg",
-              url: "https://gaming.uefa.com/en/uclfantasy/overview",
-            })
-
-            .addFields({
-              name: `Previous day Result`,
-              value: `------------------------------------------------`,
-            })
-            .addFields({
-              name: "\u200b",
-              value: prevMotm,
-            });
-          interaction.reply({
-            embeds: [Embed],
-          });
-        }
-      }
-    } catch (err) {
-      console.log(err);
-      interaction.reply({
-        content: `Server is busy.... try again after few min`,
-        ephemeral: true,
-      });
-    }
-  },
-};
 
 export const prevWinner = {
   name: "interactionCreate",
@@ -146,7 +106,7 @@ export const prevWinner = {
       ) {
         if (interaction.options.get("menu").value === "prevWinner") {
           const exampleEmbed = new EmbedBuilder()
-            .setTitle(`Winner of 2021`)
+            .setTitle(`Winner of ${prevYear}`)
             .setImage(process.env.WINNER_IMAGE_URL)
             .setColor(0x5e548e)
             .setAuthor({
@@ -200,10 +160,6 @@ export const aboutInt = {
             .addFields({
               name: `/fantasy > menu >  Previous match day results`,
               value: ";to see the results of previous match",
-            })
-            .addFields({
-              name: `/fantasy > menu > Previous match MOTM ;`,
-              value: "to see the man of the matches of previous match day",
             })
             .addFields({
               name: `/fantasy > menu > Previous winner ;`,

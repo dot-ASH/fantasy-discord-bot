@@ -4,7 +4,7 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "devStart": "nodemon bot.js",
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "@discordjs/rest": "^1.1.0",
     "axios": "^1.3.2",
     "body-parser": "^1.20.1",
+    "cheerio": "^1.0.0-rc.12",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",

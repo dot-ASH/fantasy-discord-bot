@@ -10,6 +10,12 @@
   </head>
   <body>
     <h1 id="content" style="display: none">*** SENT ***</h1>
+    <h1>---- Fetch the Fixture ----</h1>
+    <div class="container">
+      <button id="fixtureButton" type="submit">Fetch FIXTURE</button>
+      <button id="fixtureNewButton" type="submit">Simplify FIXTURE</button>
+    </div>
+
     <h1>---- Fetch the Leaderboard ----</h1>
     <div class="container">
       <label>The JSON API: </label><br />
@@ -19,12 +25,6 @@
       </form>
 
       <button id="postButton" type="submit">Simplify LEADERBOARD</button>
-    </div>
-
-    <h1>---- Fetch the Fixture ----</h1>
-    <div class="container">
-      <button id="fixtureButton" type="submit">Fetch FIXTURE</button>
-      <button id="fixtureNewButton" type="submit">Simplify FIXTURE</button>
     </div>
 
     <h1>---- Send Messages ----</h1>
@@ -73,29 +73,6 @@
           console.error("Error:", error);
         });
     });
-
-    //     document
-    // .getElementById("postOldButton")
-    // .addEventListener("click", () => {
-    //   const data = {
-    //     message: "This is the message to be sent in the POST request",
-    //   };
-
-    //   fetch("/apiOldPost", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("Response received:", data);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //     });
-    // });
 
     document.getElementById("fixtureButton").addEventListener("click", () => {
       const data = {
@@ -153,7 +130,7 @@
 
         setTimeout(() => {
           content.style.display = "none";
-        }, 10000);
+        }, 5000);
       }
     });
   </script>

@@ -109,8 +109,8 @@ server.get("/", (req, res) => {
 
 server.post("/mainpage", (req, res) => {
   const admin = {
-    name: process.env.ADMIN,
-    pass: process.env.PASS,
+    name: process.env.ADMIN || "admin",
+    pass: process.env.PASS || "12345",
   };
   let username = req.body.username;
   let password = req.body.password;

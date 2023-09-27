@@ -43,7 +43,7 @@ WINNER_IMAGE_URL= image-url-of-the-winner
 npm run div
 ```
 - Fetch the date
-	- Open browser `http://localhost:3000/` login with the username password you set inside .env file (default: admin, 12345).
+	- Open browser <http://localhost:3000/> login with the username password you set inside .env file (default: admin, 12345).
 	- Click on `fetch Fixture` then `simplify Fixture` to get the latest fixture.
 	- Provide your leagues API JOSN file link and press `fetch leaderboard` and then `simplify  leaderboard` to get the latest leaderboard
 	- Other send options are self-explanatory.

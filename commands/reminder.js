@@ -56,7 +56,7 @@ function compareDate(matchday) {
     today.month() < bdtTime.month() ||
     (today.month() === bdtTime.month() &&
       today.date() < bdtTime.date() &&
-      today.date() > 1)
+      today.date() > 0)
   ) {
     return true;
   } else return false;
